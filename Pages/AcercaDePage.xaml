@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apam.Pages.AcercaDePage"
+             xmlns:vm="clr-namespace:apam.ViewModels"
+             BackgroundColor="White"
+             Title="Acerca de...">
+
+    <ContentPage.Resources>
+        <Color x:Key="Divider">LightGrey</Color>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <HorizontalStackLayout Grid.Row="0" Margin="0" BackgroundColor="#efefef">
+            <Image Source="team.png" HeightRequest="48" WidthRequest="48" Margin="20,10,10,10" VerticalOptions="Center"/>
+            <Label Text="¿Quiénes Somos?" FontSize="18" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="1" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <Border Margin="15" Padding="15" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#044680" StrokeThickness="1" Grid.Row="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10" />
+            </Border.StrokeShape>
+            <Label Text="El proyecto APAM (Asistente Personal para Adultos Mayores) tiene como objetivo principal apoyar a las personas mayores en la organización de su vida diaria, promoviendo la salud, la seguridad, autonomía y bienestar integral" 
+                   TextColor="White" HorizontalOptions="Center" LineBreakMode="WordWrap" FontSize="17" />
+        </Border>
+
+        <HorizontalStackLayout Grid.Row="2" Margin="0" BackgroundColor="#efefef">
+            <Image Source="team.png" HeightRequest="48" WidthRequest="48" Margin="20,10,10,10" VerticalOptions="Center"/>
+            <Label Text="Créditos" FontSize="18" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="1" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="3" Margin="10,20">
+            <VerticalStackLayout>
+                <HorizontalStackLayout Margin="10">
+                    <Image Source="person.png" WidthRequest="32" Grid.Column="1" Margin="0,0,10,0" />
+                    <Label Text="Carlos Abdiel Angulo Arreola" FontSize="16" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="3" VerticalTextAlignment="Center"  />
+                </HorizontalStackLayout>
+                <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Divider}" />
+
+                <HorizontalStackLayout Margin="10">
+                    <Image Source="person.png" WidthRequest="32" Grid.Column="1"  Margin="0,0,10,0" />
+                    <Label Text="Carlos Bermúdez López" FontSize="16" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="3" VerticalTextAlignment="Center"  />
+                </HorizontalStackLayout>
+                <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Divider}" />
+
+                <HorizontalStackLayout Margin="10">
+                    <Image Source="person.png" WidthRequest="32" Grid.Column="1"  Margin="0,0,10,0" />
+                    <Label Text="Gonzalo Astorga Bernal" FontSize="16" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="3" VerticalTextAlignment="Center"  />
+                </HorizontalStackLayout>
+                <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Divider}" />
+
+                <HorizontalStackLayout Margin="10">
+                    <Image Source="droid.png" WidthRequest="32" Grid.Column="1"  Margin="0,0,10,0" />
+                    <Label Text="Droid Black" FontSize="16" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="3" VerticalTextAlignment="Center"  />
+                </HorizontalStackLayout>
+                <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Divider}" />
+
+                <HorizontalStackLayout Grid.Row="0" Margin="0,20,0,0" BackgroundColor="#efefef">
+                    <Image Source="payments.png" HeightRequest="32" WidthRequest="32" Margin="20,10,10,10" VerticalOptions="Center"/>
+                    <Label Text="Donaciones" FontSize="18" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="1" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <Label Margin="20,10,10,0" Text="Si te gusta nuestro trabajo, puedes apoyarnos:" FontSize="14" TextColor="Black" LineBreakMode="WordWrap" VerticalTextAlignment="Center"  />
+                <VerticalStackLayout Margin="20,10,10,0" >
+                    <Label x:Name="lblCuenta" Text="CLABE: 722969010454723371" FontSize="16" FontAttributes="Bold" TextColor="Black" LineBreakMode="WordWrap" VerticalTextAlignment="Center"  />
+                    <Button Text="Copiar" WidthRequest="80" Margin="0,15,0,0" Clicked="Button_Clicked" HorizontalOptions="Start" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

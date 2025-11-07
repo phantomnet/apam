@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apam.Pages.EstadoAnimoPage"
+             BackgroundColor="White"
+             Title="¿Cómo te sientes?">
+    <ScrollView>
+
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout HorizontalOptions="Fill" BackgroundColor="#efefef" HeightRequest="100" Spacing="5" >
+                <Label Text="" FontSize="16" FontAttributes="Bold" x:Name="lblMain" HorizontalTextAlignment="Center" Margin="0,15,0,0" />
+                <Label Text="¿Cómo te sientes en este momento?" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="(Presiona sobre la imagen)" FontSize="13" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Spacing="20" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,20,0,0">
+                <VerticalStackLayout Spacing="10" x:Name="vslHappy">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHappyTapped"/>
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Image Source="happy.png" Aspect="AspectFit" HeightRequest="96" HorizontalOptions="Center" x:Name="happyPicture" />
+                    <Label Text="Feliz!" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" x:Name="happyLabel" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="10" x:Name="vslMeh">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMehTapped"/>
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Image Source="ahivamos.png" Aspect="AspectFit" HeightRequest="96" HorizontalOptions="Center" x:Name="mehPicture" />
+                    <Label Text="Ahi vamos" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" x:Name="mehLabel" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="10" x:Name="vslSad">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSadTapped"/>
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Image Source="sad.png" Aspect="AspectFit" HeightRequest="96" HorizontalOptions="Center" x:Name="sadPicture" />
+                    <Label Text="Triste" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center" x:Name="sadLabel" />
+                </VerticalStackLayout>
+
+                <Border Margin="15" Padding="15" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#044680" x:Name="bdResponse" IsVisible="False">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+                    <Label Text="" TextColor="White" HorizontalOptions="Center" x:Name="lblResponse" LineBreakMode="WordWrap" FontSize="18" />
+                </Border>
+
+            </VerticalStackLayout>
+
+            <!-- Loading overlay -->
+            <Grid x:Name="Loader" Grid.RowSpan="2"
+              IsVisible="False">
+                <Border Padding="15" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E74C3C">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <ActivityIndicator x:Name="LoadingIndicator" 
+                                 IsRunning="True"
+                                 Color="White"
+                                 HeightRequest="100"
+                                 WidthRequest="100" />
+                        <Label Text="Espera un momento..." 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                    </StackLayout>
+                </Border>
+            </Grid>
+
+        </Grid>
+
+    </ScrollView>
+
+</ContentPage>

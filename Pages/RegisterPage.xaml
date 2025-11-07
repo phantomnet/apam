@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apam.Pages.RegisterPage"
+             xmlns:vm="clr-namespace:apam.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             BackgroundColor="White"
+             Title="Registrar">
+
+    <ContentPage.BindingContext>
+        <vm:RegisterViewModel/>
+    </ContentPage.BindingContext>
+
+    <!-- Same color system & text styles as the playlist page -->
+    <ContentPage.Resources>
+        <Color x:Key="Primary">#044680</Color>
+        <Color x:Key="Muted">#F2F3F7</Color>
+        <Color x:Key="Divider">#E9EBF0</Color>
+        <Thickness x:Key="ScreenPadding">20,16</Thickness>
+
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#0C0C0C, Dark=#F6F6F6}" />
+        </Style>
+        <Style x:Key="Caption" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#8F97A3, Dark=#9BA3AF}" />
+        </Style>
+        <Style x:Key="TitleLarge" TargetType="Label">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+        <Style x:Key="InputLabel" TargetType="Label" BasedOn="{StaticResource Caption}">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#455066, Dark=#C8CFDA}"/>
+        </Style>
+        <Style x:Key="FormEntry" TargetType="Entry">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#0C0C0C, Dark=#F6F6F6}"/>
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light=#A7AFC0, Dark=#9BA3AF}"/>
+        </Style>
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="HeightRequest" Value="52"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="Auto,*">
+        <!-- Top bar -->
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="18" Padding="{StaticResource ScreenPadding}">
+
+                <!-- Header -->
+                <VerticalStackLayout Spacing="6" Margin="0,4,0,8">
+                    <Label Text="Crear cuenta" Style="{StaticResource TitleLarge}"/>
+                    <Label Text="Unase y controle su dia a dia." Style="{StaticResource Caption}"/>
+                </VerticalStackLayout>
+
+                <!-- Alias -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Alias (sin espacios)" Style="{StaticResource InputLabel}"/>
+                    <Border BackgroundColor="{StaticResource Muted}" StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="14,12">
+                        <Entry Style="{StaticResource FormEntry}" Placeholder="Ingrese Alias" Text="{Binding Alias}" ReturnType="Next" MaxLength="20"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Nombre -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Nombre Completo" Style="{StaticResource InputLabel}"/>
+                    <Border BackgroundColor="{StaticResource Muted}" StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="14,12">
+                        <Entry Style="{StaticResource FormEntry}" Placeholder="Ingrese Nombre" Text="{Binding Nombre}" ReturnType="Next" MaxLength="50"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Dob -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Fecha de Nacimiento" Style="{StaticResource InputLabel}"/>
+                    <Border BackgroundColor="{StaticResource Muted}" StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="14,12">
+                        <DatePicker Style="{StaticResource FormEntry}"  x:Name="dobPicker" MaximumDate="{x:Static sys:DateTime.Now}" Date="{Binding Dob}" Format="dd MMMM, yyyy" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Telefono Emergencia -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Teléfono Emergencia" Style="{StaticResource InputLabel}"/>
+                    <Border BackgroundColor="{StaticResource Muted}" StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="14,12">
+                        <Entry Style="{StaticResource FormEntry}" Placeholder="Ingrese Teléfono Emergencia" Keyboard="Telephone" MaxLength="10"
+                               Text="{Binding Emergencia}" ReturnType="Next"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Telefono Ubicacion -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Teléfono Ubicación" Style="{StaticResource InputLabel}"/>
+                    <Border BackgroundColor="{StaticResource Muted}" StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="14,12">
+                        <Entry Style="{StaticResource FormEntry}" Placeholder="Ingrese Teléfono Ubicación" Keyboard="Telephone" MaxLength="10"
+                               Text="{Binding Ubicacion}" ReturnType="Next"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Telefono Cruz Roja -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Teléfono Cruz Roja" Style="{StaticResource InputLabel}"/>
+                    <Border BackgroundColor="{StaticResource Muted}" StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="14,12">
+                        <Entry Style="{StaticResource FormEntry}" Placeholder="Ingrese Teléfono Cruz Roja" Keyboard="Telephone" MaxLength="10"
+                               Text="{Binding CruzRoja}" ReturnType="Next"/>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Telefono Dif -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Teléfono DIF" Style="{StaticResource InputLabel}"/>
+                    <Border BackgroundColor="{StaticResource Muted}" StrokeThickness="0" StrokeShape="RoundRectangle 14" Padding="14,12">
+                        <Entry Style="{StaticResource FormEntry}" Placeholder="Ingrese Teléfono Dif" Keyboard="Telephone" MaxLength="10"
+                               Text="{Binding Dif}" ReturnType="Next"></Entry>
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Submit -->
+                <Button Text="Registrar Datos" Style="{StaticResource PrimaryButton}" Command="{Binding RegisterCommand}" />
+
+                <!-- Divider -->
+                <BoxView HeightRequest="1" BackgroundColor="{StaticResource Divider}" Margin="0,8"/>
+
+                <!-- Already have account -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="6">
+                    <Label Text="Derechos Reservados APAM® 2025©" Style="{StaticResource Caption}"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apam.Pages.HoroscopoPage"
+             xmlns:vm="clr-namespace:apam.ViewModels"
+             Background="White"
+             Title="Horóscopo">
+
+    <ContentPage.BindingContext>
+        <vm:HoroscopoViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Color x:Key="Divider">LightGrey</Color>
+
+        <DataTemplate x:Key="MenuItemTemplateHelp">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Image Source="{Binding Imagen}" WidthRequest="32" Grid.Column="1"  />
+                <VerticalStackLayout Grid.Column="3" VerticalOptions="Center">
+                    <Label Text="{Binding Signo}" FontSize="16" TextColor="Black" LineBreakMode="TailTruncation" FontAttributes="Bold" MaxLines="1"  />
+                </VerticalStackLayout>
+
+                <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Divider}" />
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Signo}" />
+                </Grid.GestureRecognizers>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <HorizontalStackLayout Grid.Row="0" Margin="0" BackgroundColor="#efefef" Grid.ColumnSpan="2" Spacing="10" >
+            <Image Source="horoscope.png" HeightRequest="48" WidthRequest="48" Margin="20,10,10,10" VerticalOptions="Center"/>
+            <Label Text="{Binding SignoUsuario}" FontSize="18" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="1" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <CollectionView Grid.Row="1" Grid.ColumnSpan="2" Margin="20,0,0,0"
+                x:Name="OptionsHelpCollection" HorizontalOptions="Center"
+                ItemsSource="{Binding Items}"
+                ItemTemplate="{StaticResource MenuItemTemplateHelp}"
+                SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+
+        <!-- Loading overlay -->
+        <Grid x:Name="Loader" Grid.RowSpan="2"
+              IsVisible="False">
+            <Border Padding="15" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E74C3C">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <ActivityIndicator x:Name="LoadingIndicator" 
+                                 IsRunning="True"
+                                 Color="White"
+                                 HeightRequest="100"
+                                 WidthRequest="100" />
+                    <Label Text="Consultando con las estrellas..." 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                </StackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

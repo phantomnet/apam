@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apam.Pages.JuegosPage"
+            xmlns:vm="clr-namespace:apam.ViewModels"
+             Title="Juegos">
+
+    <ContentPage.BindingContext>
+        <vm:JuegosViewModel/>
+    </ContentPage.BindingContext>
+
+    <!-- Page theme -->
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#0C0C0C, Dark=#F6F6F6}" />
+        </Style>
+
+        <Style x:Key="Caption" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light=#8F97A3, Dark=#9BA3AF}" />
+        </Style>
+
+        <Style x:Key="TitleLarge" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+        </Style>
+
+        <Style x:Key="TrackTitle" TargetType="Label">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="TailTruncation"/>
+        </Style>
+
+        <Style x:Key="TrackArtist" TargetType="Label" BasedOn="{StaticResource Caption}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="LineBreakMode" Value="TailTruncation"/>
+        </Style>
+
+        <Color x:Key="Primary">#044680</Color>
+        <Color x:Key="Muted">#F2F3F7</Color>
+        <Color x:Key="Divider">#E9EBF0</Color>
+        <Thickness x:Key="ScreenPadding">20,16</Thickness>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto, Auto, *">
+        <!-- Top bar -->
+
+        <!-- Header -->
+        <Grid ColumnDefinitions="Auto,*,Auto" Margin="15,0,0,0">
+            <Border WidthRequest="72" HeightRequest="72" StrokeThickness="0" StrokeShape="RoundRectangle 18">
+                <!-- Replace with your embedded/remote image -->
+                <Image Source="{Binding CoverImage}" Aspect="AspectFill" x:Name="imgCover"/>
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1" Spacing="6" Padding="14,0,10,0">
+                <Label Text="{Binding Title}" Style="{StaticResource TitleLarge}" x:Name="lblRadioTitle"/>
+                <Label Text="{Binding Subtitle}" Style="{StaticResource Caption}" x:Name="lblRadioSubTitle"/>
+                <Label Text="{Binding Tags}" Style="{StaticResource Caption}" />
+            </VerticalStackLayout>
+
+        </Grid>
+
+        <Label Grid.Row="1" Text="Lista de Juegos" FontAttributes="Bold" Margin="20,16,0,8"/>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="18" Padding="{StaticResource ScreenPadding}">
+
+                <!-- Tracks -->
+                <CollectionView
+                    ItemsSource="{Binding TiposJuego}"
+                    SelectionChanged="CollectionView_SelectionChanged"
+                    SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="0,10" RowDefinitions="Auto,Auto" ColumnDefinitions="30,Auto,*,Auto">
+
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <!-- Index -->
+                                <Label Text="{Binding Index}" Style="{StaticResource Caption}" Margin="0,0,10,0" VerticalOptions="Center"/>
+
+                                <!-- Thumb -->
+                                <Border Grid.Column="1" WidthRequest="42" HeightRequest="42" StrokeThickness="1" StrokeShape="RoundRectangle 19">
+                                    <Image Source="{Binding Thumb}" Aspect="AspectFill"/>
+                                </Border>
+
+                                <!-- Titles -->
+                                <VerticalStackLayout Grid.Column="2" Spacing="2" Padding="10,0,0,12" Grid.RowSpan="2" VerticalOptions="Center">
+                                    <Label Text="{Binding Title}" Style="{StaticResource TrackTitle}"/>
+                                    <!--<Label Text="{Binding SubTitle}" Style="{StaticResource TrackArtist}"/>-->
+                                </VerticalStackLayout>
+
+                                <!-- Duration -->
+                                <!--<Label Grid.Column="3" Text="{Binding Link}" Style="{StaticResource Caption}" VerticalOptions="Center"/>-->
+
+                                <!-- divider -->
+                                <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Divider}" Margin="0,10,0,0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

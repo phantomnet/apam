@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apam.Pages.EstadoAnimoSpeechPage"
+             BackgroundColor="White"
+             Title="¿Cómo te sientes?">
+
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout HorizontalOptions="Fill" BackgroundColor="#efefef" HeightRequest="80" Spacing="5" >
+                <Label Text="" FontSize="18" FontAttributes="Bold" x:Name="lblMain" HorizontalTextAlignment="Center" Margin="0,15,0,0" />
+                <Label Text="¿Cómo te sientes en este momento?" FontSize="16" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Margin="0,15,0,10" Spacing="10">
+                <Border StrokeShape="RoundRectangle 40,40,40,40"
+                    Stroke="Transparent"
+                    Background="LightGreen"
+                    WidthRequest="80"
+                    HeightRequest="80">
+
+                    <ImageButton Source="microphone.png" x:Name="imgMicro"
+                         Aspect="AspectFill"
+                         BackgroundColor="Transparent"
+                         Clicked="OnMicClicked" />
+                </Border>
+
+                <Label x:Name="lblMicro" Text="Presiona el micrófono para escucharte..." FontSize="13" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+        <ScrollView Grid.Row="2" x:Name="chatScrollView">
+            <VerticalStackLayout x:Name="viewerTalk">
+            </VerticalStackLayout>
+        </ScrollView>
+
+            <!-- Loading overlay -->
+        <Grid x:Name="Loader" Grid.RowSpan="3"
+            IsVisible="False">
+            <Border Padding="15" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#E74C3C">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <ActivityIndicator x:Name="LoadingIndicator" 
+                                IsRunning="True"
+                                Color="White"
+                                HeightRequest="100"
+                                WidthRequest="100" />
+                    <Label Text="Espera un momento..." 
+                    TextColor="White"
+                    HorizontalOptions="Center" />
+                </StackLayout>
+            </Border>
+        </Grid>
+
+        <!-- Loading overlay -->
+        <Grid x:Name="Responder" Grid.RowSpan="3"
+            IsVisible="False">
+            <Border Padding="15" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="SteelBlue">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="assistant.png" 
+                                HeightRequest="100"
+                                WidthRequest="100" />
+                    <Label Text="Respondiendo..." 
+                    TextColor="White"
+                    HorizontalOptions="Center" />
+                </StackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

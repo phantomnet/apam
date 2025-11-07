@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="apam.Pages.CuentosPage"
+             xmlns:vm="clr-namespace:apam.ViewModels"
+             BackgroundColor="White"
+             Title="Audiolibros">
+
+    <ContentPage.BindingContext>
+        <vm:CuentosViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <Color x:Key="Divider">LightGrey</Color>
+
+        <DataTemplate x:Key="MenuItemTemplateHelp">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Image Source="{Binding UrlImagen}" WidthRequest="32" Grid.Column="1"  />
+                <Label Text="{Binding Titulo}" FontSize="16" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="3" VerticalTextAlignment="Center"  />
+
+                <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1" BackgroundColor="{StaticResource Divider}" />
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Url}" />
+                </Grid.GestureRecognizers>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <HorizontalStackLayout Grid.Row="0" Margin="0" >
+            <Image Source="a1_book.png" HeightRequest="48" WidthRequest="48" Margin="20,10,10,10" VerticalOptions="Center"/>
+            <Label Text="Seleccione un audiolibro y dele Play" FontSize="16" TextColor="Black" LineBreakMode="WordWrap" FontAttributes="Bold" Grid.Column="1" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <CollectionView Grid.Row="1" BackgroundColor="#efefef"
+                x:Name="OptionsHelpCollection" HorizontalOptions="Center"
+                ItemsSource="{Binding Items}"
+                ItemTemplate="{StaticResource MenuItemTemplateHelp}"
+                SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+
+        <WebView x:Name="webViewCuentos" Grid.Row="2" />
+    </Grid>
+    
+</ContentPage>

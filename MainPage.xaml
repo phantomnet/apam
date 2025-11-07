@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="apam.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:apam.ViewModels"
+    BackgroundColor="#044680"
+    Title="">
+
+    <ContentPage.BindingContext>
+        <vm:OptionsViewModel/>
+    </ContentPage.BindingContext>
+
+    <!-- Page styles -->
+    <ContentPage.Resources>
+        <!-- Spacing, radii, and shadows -->
+        <Style x:Key="TileFrame" TargetType="Border">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Shadow">
+                <Setter.Value>
+                    <Shadow Brush="#40000000" Offset="0,2" Radius="8" Opacity="0.35"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BandFrame" TargetType="Border" BasedOn="{StaticResource TileFrame}">
+            <Setter Property="Padding" Value="18,14"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+
+        <DataTemplate x:Key="MenuItemTemplate">
+            <!-- One row = one menu option -->
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="72"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left colored square with emoji icon (use your own images if you prefer) -->
+                <Border Grid.Column="0"
+                       BackgroundColor="{Binding IconBg}"
+                       Style="{StaticResource TileFrame}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5,0,5,0" />
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Image Source="{Binding Icon}" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="40" />
+                    </Grid>
+                </Border>
+
+                <!-- Right wide colored band with title and (optional) subtitle -->
+                <Border Grid.Column="1"
+                       BackgroundColor="{Binding BandBg}"
+                       Style="{StaticResource BandFrame}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="0,5,0,5" />
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Text="{Binding Title}" 
+                               FontAttributes="Bold"
+                               FontSize="18"
+                               TextColor="White"/>
+
+                        <Label Grid.Row="1"
+                               Text="{Binding Subtitle}"
+                               FontSize="13"
+                               Opacity="0.9"
+                               TextColor="White"/>
+                    </Grid>
+                </Border>
+
+                <!-- Whole-row tap target -->
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOptionsTapped" CommandParameter="{Binding Route}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="MenuItemTemplateHelp">
+            <!-- One row = one menu option -->
+            <Grid Margin="0,10,0,10" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170" />
+                </Grid.ColumnDefinitions>
+                <!-- Left colored square with emoji icon (use your own images if you prefer) -->
+                <Border Grid.Column="0"
+                       BackgroundColor="{Binding IconBg}"
+                       Style="{StaticResource TileFrame}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image Source="{Binding Icon}" Margin="0,10,0,0"
+                               WidthRequest="48"
+                               HeightRequest="48"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                        <Label Text="{Binding Title}" Grid.Row="1" Margin="0,10,0,10"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               TextColor="White"/>
+                    </Grid>
+                </Border>
+
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOptionsHelpTapped" CommandParameter="{Binding Route}"/>
+                </Grid.GestureRecognizers>
+            </Grid>
+        </DataTemplate>
+
+    </ContentPage.Resources>    
+    
+    <Grid x:Name="MainGrid" IsEnabled="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Fila 0 -->
+        <Grid BackgroundColor="White" HeightRequest="120">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="logo_apam2.png" WidthRequest="160" Margin="15,0,0,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLogoTapped"/>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <Label Text="" FontSize="18" FontAttributes="Bold" TextColor="#044680" x:Name="lblAlias" 
+                   Grid.ColumnSpan="2" Margin="90,70,0,0" />
+
+            <VerticalStackLayout Grid.Column="2" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,20,0">
+                <Image WidthRequest="64" x:Name="imgWeather"></Image>
+                <Label Text="" FontSize="20" FontAttributes="Bold" TextColor="#E74C3C" HorizontalTextAlignment="Center" x:Name="lblTemperature" />
+
+                <VerticalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnWeatherTapped" CommandParameter="DashboardPage"/>
+                </VerticalStackLayout.GestureRecognizers>
+            </VerticalStackLayout>
+
+            <Border Grid.Row="1" Grid.ColumnSpan="3" HeightRequest="20" StrokeThickness="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#ffffff" Offset="0.0" />
+                        <GradientStop Color="LightGrey" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,20,20"/>
+                </Border.StrokeShape>
+            </Border>
+        </Grid>
+
+        <!-- Fila 1 -->
+        <Grid Grid.Row="1" BackgroundColor="#efefef">
+            <CollectionView x:Name="OptionsCollection"
+                        ItemsSource="{Binding Items}"
+                        ItemTemplate="{StaticResource MenuItemTemplate}"
+                        SelectionMode="None"
+                        Margin="10,5">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+        </Grid>
+
+        <!-- Fila 2 -->
+        <Grid Grid.Row="2" BackgroundColor="White" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.ColumnSpan="2" HeightRequest="20" StrokeThickness="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                        <GradientStop Color="#ffffff" Offset="0.0" />
+                        <GradientStop Color="LightGrey" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20,20,0,0"/>
+                </Border.StrokeShape>
+            </Border>
+
+            <CollectionView x:Name="OptionsHelpCollection" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalOptions="Center"
+                        ItemsSource="{Binding ItemsHelpCenter}"
+                        ItemTemplate="{StaticResource MenuItemTemplateHelp}"
+                        SelectionMode="None"
+                        Margin="10,5">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </Grid>
+
+        <!-- Loading overlay -->
+        <Grid x:Name="Loader" Grid.RowSpan="3"
+              IsVisible="False">
+            <Border Padding="15" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="#044680">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <ActivityIndicator x:Name="LoadingIndicator" 
+                                 IsRunning="True"
+                                 Color="White"
+                                 HeightRequest="100"
+                                 WidthRequest="100" />
+                    <Label Text="Cargando..." 
+                       TextColor="White"
+                       HorizontalOptions="Center" />
+                </StackLayout>
+            </Border>
+        </Grid>
+
+    </Grid>
+    
+</ContentPage>
